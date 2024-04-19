@@ -1,0 +1,11 @@
+docker buildx version
+
+docker buildx ls
+
+docker buildx create --name builder
+
+docker buildx inspect --bootstrap builder
+
+docker buildx use builder
+
+docker buildx build --platform linux/arm64,linux/amd64 -t mrchoke/hello:multiarch --push .

@@ -1,0 +1,17 @@
+FROM golang AS builder
+
+WORKDIR /app
+
+COPY main.go .
+
+ENV CGO_ENABLED 0
+ENV GOOS linux 
+ENV GOARCH ${TARGETARCH}
+
+RUN go build -o hello main.go
+
+FROM scratch
+
+COPY --from=builder /app/hello /hello
+
+CMD ["/hello"]
